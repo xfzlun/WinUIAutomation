@@ -6,6 +6,10 @@ import pyautogui
 import random
 import pyperclip
 
+#截图
+pyautogui.screenshot('screenshot_desktop.jpg')  #截全屏
+pyautogui.screenshot('screenshot_part.jpg',region=(0,0,300,400))  # 指定区域切割
+
 #左键点击脚本
 def left_click(path): #定义一个函数实现左键点击的功能
     left_click1 = pyautogui.locateOnScreen(path) #把目标图片当作参数传递给path
