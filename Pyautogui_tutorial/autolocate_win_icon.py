@@ -29,8 +29,29 @@ There are following methods for locating target pic.
 print(pyautogui.locateAllOnScreen('screenshot_part.jpg'))
 
 # speed up locate target pic.
-
 #tips: region: 缩小查找区域
 pyautogui.locateOnScreen('screenshot_part.png', region=(0, 0, 600, 800))
 
 #tips2:灰度匹配，可提升找图速度
+pyautogui.locateOnScreen('screenshot_part.png', grayscale=True)
+
+# 取点
+# 单个像素点颜色匹配，传入一个坐标返回该坐标的RGB值
+# 方法一：实例化一个对象
+im = pyautogui.screenshot()
+print(type(im), im.getpixel((100,200)))  # getpixel传入一个元祖类型的参数，话说这里getpixel(100,200)是啥意思啊
+#应该跟方法2的目的是一样的吧
+#方法2
+pix = pyautogui.pixel(100,200) #获取指定x,y的RGB值
+print(pix)
+
+#RGB值匹配
+#单个像素点与给定像素匹配，给定像素点以Tuple的形式
+print(pyautogui.pixelMatchesColor(100, 200, (41, 128, 185)))
+# tolerance关键字参数，可在一定误差内进行匹配
+print(pyautogui.pixelMatchesColor(100, 200, (25, 118, 199), tolerance=20))
+
+# 可以做多点匹配，将坐标传入数组，然后循环比色即可(这个功能不确定能不能用来测试AC)
+
+
+
