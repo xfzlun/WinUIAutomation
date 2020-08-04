@@ -7,36 +7,22 @@ import random
 import pyperclip
 
 #截图
-pyautogui.screenshot('screenshot_desktop.jpg')  #截全屏
-pyautogui.screenshot('screenshot_part.jpg',region=(0,0,300,400))  # 指定区域切割
-
-#左键点击脚本
-def left_click(path): #定义一个函数实现左键点击的功能
-    left_click1 = pyautogui.locateOnScreen(path) #把目标图片当作参数传递给path
-    print('left_click1::', left_click1)
-    if left_click1:
-        url_x, url_y = pyautogui.center(left_click1)
-        pyautogui.leftClick(url_x, url_y)
-        return True
-    return False
+pyautogui.screenshot('screenshot_desktop.png')  #截全屏
+pyautogui.screenshot('screenshot_part.png',region=(0,0,300,400))  # 指定区域切割
 
 
-def change_ua(): #定义一个函数实现随机变换目标图片
-    ua=random.choice(useragents)
-    for i in range(2):
-        result0 = left_click('./images/ua{}.png'.format(i))
-        if result0:
-            break
-        result2 = left_click('./images/ua2.png')
-        result3 = left_click('./images/ua3.png')
-        result4 = left_click('./images/ua40.png')
-        for j in range(1,3):
-            result5 = left_click('./images/ua4{}.png'.format(j))
-            if result5:
-                pyautogui.hotkey('ctrl','a')
-                pyautogui.hotkey('backspace')
-                pyperclip.copy(ua)
-                pyautogui.hotkey('ctrl','v')
-                pyautogui.press('enter')
-        result6 = left_click('./images/ua_refresh.png')
-        left_click('./images/ua5.png')
+#find target pic
+Part = pyautogui.locateOnScreen('screenshot_part.png')  
+#('screenshot_part.png',confidence=0.9) 不知道为什么加了精度参数confidence以后就一直报错
+#查詢文檔以後發現(文档位置: https://pyautogui.readthedocs.io/en/latest/)
+#需要在环境中安装OpenCV,原话是 Note: You need to have OpenCV installed for the confidence keyword to work.
+abc=pyautogui.center(Part)
+print(abc)
+
+'''
+There are following methods for locating target pic. 
+1. locateOnScreen(image): return the first matched instance on screen
+2. locateCenterOnScreen(image): return the center location of the first matched image on screen.
+3. locateAllOnScreen(image)： return generator??
+'''
+print(pyautogui.locateAllOnScreen('screenshot_part.jpg'))
