@@ -8,15 +8,16 @@ import pyperclip
 
 #截图
 pyautogui.screenshot('screenshot_desktop.png')  #截全屏
-pyautogui.screenshot('screenshot_part.png',region=(0,0,300,400))  # 指定区域切割
+pyautogui.screenshot('screenshot_part.png',region=(0,0,300,400))  # 指定区域(从0，0开始截取x方向为300px，y方向为400px的一张图切割
+
 
 
 #find target pic
-Part = pyautogui.locateOnScreen('screenshot_part.png')  
+Part = pyautogui.locateOnScreen('screenshot_part.png', confidence=0.9)  
 #('screenshot_part.png',confidence=0.9) 不知道为什么加了精度参数confidence以后就一直报错
 #查詢文檔以後發現(文档位置: https://pyautogui.readthedocs.io/en/latest/)
-#需要在环境中安装OpenCV,原话是 Note: You need to have OpenCV installed for the confidence keyword to work.
-abc=pyautogui.center(Part)
+#解决方案：需要在环境中安装OpenCV,原话是 Note: You need to have OpenCV installed for the confidence keyword to work.
+abc=pyautogui.center(Part)  #查找图片的中心点
 print(abc)
 
 '''
@@ -26,3 +27,10 @@ There are following methods for locating target pic.
 3. locateAllOnScreen(image)： return generator??
 '''
 print(pyautogui.locateAllOnScreen('screenshot_part.jpg'))
+
+# speed up locate target pic.
+
+#tips: region: 缩小查找区域
+pyautogui.locateOnScreen('screenshot_part.png', region=(0, 0, 600, 800))
+
+#tips2:灰度匹配，可提升找图速度
