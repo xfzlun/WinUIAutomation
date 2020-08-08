@@ -25,3 +25,26 @@ pg.move.Rel(xOffset=10, yOffset=10, duration = 2)
 pg.doubleClick()
 
 #triple click
+pg.tripleClick()
+
+#右击
+pg.rightClick()
+
+#中击
+pg.middleClick()
+
+# 鼠标当前位置滚轮滚动
+pg.scroll()
+
+# 鼠标拖拽
+pg.dragTo(x=427, y=535, duration=3, button='left')
+
+# 鼠标相对拖拽
+pg.dragRel(xOffset=100, yOffset=100, duration=3, button='left', mouseDownUp=False)
+
+#鼠标移到x=1796, y=778位置按下
+pg.mouseDown(x=1796, y=778, button='left')
+
+#鼠标移到x=2745, y=778位置松开(与mouseDown组合使用选中)
+pg.mouseUp(x=2745, y=778, button='left', duration=5)
+
