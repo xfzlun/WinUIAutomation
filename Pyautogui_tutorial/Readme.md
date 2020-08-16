@@ -4,6 +4,10 @@
 
 官方文档：http://pyautogui.readthedocs.org
 
+参考书目：
+
+1. Python编程快速上手---让繁琐的工作自动化   CH18
+
 Pyatugui 是一个在Windows， Linux， OS X上面发送虚拟键盘按键与鼠标点击讯号，并且透过截图，找图功能实现上述作业系统中GUI的自动化操作，
 
 ## 环境准备
@@ -49,4 +53,11 @@ pyautogui控制鼠标的函数使用平面坐标 x, y，以左上角为起点，
 ![](https://raw.githubusercontent.com/xfzlun/xfzlun.github.iogithub/master/%E6%88%AA%E5%B1%8F2020-08-16%20%E4%B8%8B%E5%8D%884.55.03.png)
 
 3. pyautogui.moveRel(): Rel应该是表示relative吧，所以这个应该指的是相对于鼠标目前位置的相对位置，所以是以鼠标当前位置为起点，移动相对的点数，所以此函数内的位置参数(x,y)就可以包含负整数或是负浮点数，正数表示右移，负数表示左移
-4. pyautogui.position(): 确定鼠标当前位置，此函数返回鼠标当前位置的两个参数(x.y)的元组；参见范例程序 getMousepositon.py 
+4. pyautogui.position(): 确定鼠标当前位置，此函数返回鼠标当前位置的两个参数(x.y)的元组；参见范例程序 whereIsMouseNow.py 
+5. 点击鼠标：完整的鼠标点击一下的动作是：按下 --> 放开，在pyautogui库中，按下的函数是mouseDown()，放开鼠标的函数是mouseUp()，相当于释放鼠标按键，但如果要实现点击一下，可以直接使用pyautogui封装好的click()函数。一样传入(x,y)参数，鼠标会在指定位置点击一下，点击一下是click()，想双击就用doubleClick()；click&doubleClick预设都是点击左键，如果需要变动点击的按键，加入第三个参数button = 'right', 'left', 'middle'; 也可以用另外的函数rightClick()或是middleClick()进行右键或是中键的双击
+6. Drag: 拖动表示按住鼠标键不放，然后移动位置，这类动作经常在文件处理时出现，pyautogui提供了两个方法，跟前面提到的move一样，分为dragTo()与dragRel()
+
+练习：spiralDraw.py
+
+7. 滚动鼠标 - scroll() ：这边提供一个整数作为参数，代表滚动多少单位，此处的单位跟随不同作业系统有不同定义；另外，正书表示向上滚动，负数表示向下滚动
+
