@@ -60,4 +60,40 @@ pyautogui控制鼠标的函数使用平面坐标 x, y，以左上角为起点，
 练习：spiralDraw.py
 
 7. 滚动鼠标 - scroll() ：这边提供一个整数作为参数，代表滚动多少单位，此处的单位跟随不同作业系统有不同定义；另外，正书表示向上滚动，负数表示向下滚动
+8. 练习: 参见 generate200LineNumbers.py & mouseScrollexercise.py
+
+```python
+>>>import time, pyautogui
+>>>time.sleep(5); pyautogui.scroll(100) # 因为我们希望scroll命令在调用sleep后自动发生，我们在交互式环境中可以用分号让两个命令接续执行
+```
+
+
+
+## 图像识别
+
+pyautogui有专属的函数可以对于屏幕进行截图，RGB像素对比查找，锁定中心点坐标...等函数，方便取得对应的坐标位置以后再利用鼠标以及键盘操作函数实现GUI自动化的项目
+
+1. pyautogui.screenshot() : 获取屏幕快照；一般获取以后会赋值给另一个变量，假设是im，以方便后续处理，例如：
+
+```python
+import pyautogui
+im = pyautogui.screenshot()  
+```
+
+2. getpixel(): 搭配前面被赋值的变量，指定对应的(x,y)位置参数就可以针对特定位置进行RGB像素的取值
+
+```python
+#接续上一个例子
+im.getpixel(53,203)
+>>> (172,145,35)  # 分别代表RGB像素的红绿蓝值，没有alpha的原因是因为截图一定是不透明的
+```
+
+
+
+接下来我们要根据屏幕快照来定位我们需要的元素在什么位置，假设我们想要点一个灰底的OK按钮，我们可以对这个按钮进行截取图片后，让pyautogui根据这个图片在屏幕截取的画面上进行比对，比对方式有以下
+
+1. 检查颜色：pyautogui.pixelMatchesColor(55,200,(130, 145, 135)) # 这句的意思是，给定一个位置参数(55,200), pyautogui对这个位置进行RGB像素比对，是否符合(130,145,135), 如果为真，返回True，给定坐标位置的颜色需要完全符合才会返回True. 练习：参见whereIsMouseNow.py 扩展部分
+2. 图像识别：locateOnScreen()
+
+一般情况下，人类是根据眼睛看到或是查找特定图片来决定用鼠标或是键盘点击或是输入；我们先提取桌面上特定图标，保存为pressIcon.png, 当作参数传入locateOnScreen()，此时这个函数会返回图像所在位置的坐标，如果有多个也会返回多个，以列表的形式
 
