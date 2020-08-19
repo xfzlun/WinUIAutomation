@@ -97,3 +97,11 @@ im.getpixel(53,203)
 
 一般情况下，人类是根据眼睛看到或是查找特定图片来决定用鼠标或是键盘点击或是输入；我们先提取桌面上特定图标，保存为pressIcon.png, 当作参数传入locateOnScreen()，此时这个函数会返回图像所在位置的坐标，如果有多个也会返回多个，以列表的形式
 
+```python
+import pyautogui
+location = pyautogui.locateOnScreen('pressIcon.png')
+print(location)  # 如果没有匹配到图片，会返回None给location
+```
+
+
+
