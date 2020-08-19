@@ -92,16 +92,81 @@ im.getpixel(53,203)
 
 接下来我们要根据屏幕快照来定位我们需要的元素在什么位置，假设我们想要点一个灰底的OK按钮，我们可以对这个按钮进行截取图片后，让pyautogui根据这个图片在屏幕截取的画面上进行比对，比对方式有以下
 
-1. 检查颜色：pyautogui.pixelMatchesColor(55,200,(130, 145, 135)) # 这句的意思是，给定一个位置参数(55,200), pyautogui对这个位置进行RGB像素比对，是否符合(130,145,135), 如果为真，返回True，给定坐标位置的颜色需要完全符合才会返回True. 练习：参见whereIsMouseNow.py 扩展部分
+1. 检查颜色：pyautogui.pixelMatchesColor(55,200,(130, 145, 135)) # 这句的意思是，给定一个位置参数(55,200), pyautogui对这个位置进行RGB像素比对，是否符合(130,145,135), 如果为真，返回True，给定坐标位置的颜色需要完全符合才会返回True. 另外也可加入参数 tolerance，降低精度，提高匹配绿，练习：参见whereIsMouseNow.py 扩展部分
+
+    
+
 2. 图像识别：locateOnScreen()
 
-一般情况下，人类是根据眼睛看到或是查找特定图片来决定用鼠标或是键盘点击或是输入；我们先提取桌面上特定图标，保存为pressIcon.png, 当作参数传入locateOnScreen()，此时这个函数会返回图像所在位置的坐标，如果有多个也会返回多个，以列表的形式
+一般情况下，人类是根据眼睛看到或是查找特定图片来决定用鼠标或是键盘点击或是输入；我们先提取桌面上特定图标，保存为pressIcon.png, 当作参数传入locateOnScreen()，此时这个函数会返回图像所在位置左上角点的坐标(x,y), 宽度，高度，4个值，如果有多个也会返回多个，以Generator对象的形式，我们可以传递给List()
 
 ```python
 import pyautogui
 location = pyautogui.locateOnScreen('pressIcon.png')
 print(location)  # 如果没有匹配到图片，会返回None给location
 ```
+
+匹配图片的时候，locateOnScreen()会确认屏幕上的像素与提供的图片RGB完全匹配，即使只差一个像素，也会返回None
+
+confidence参数：
+
+上述的例子，我们还可以为locateOnScreen()加入confidence参数，降低精准度，提高匹配率 **但请注意，此参数要生效要在环境中安装OpenCV**
+
+3. 图像识别-中心点识别:**locateCenterOnScreen()**
+
+此功能合成了locateOnScreen 与 center， 可以直接返回匹配图片的中心点坐标，这样我们可以直接pass给mouse或是keyboard函数使用
+
+4. locateAllOnScreen(Image):
+
+以generator形式返回屏幕上符合目标图片的所有位置讯息
+
+5. 其他图像识别的部分- 大图中找小图 **locate('小图', '大图')  locateAll('小图', '大图')**
+6. 灰阶匹配:
+
+在locate函数中，我们可以加入参数grayscale = True，可以以灰阶匹配模式匹配图片，增加匹配成功率以及查找的速度
+
+## 配套操作
+
+pyperclip - 对于画面进行复制或贴上
+
+```python
+import pyperclip
+pyperclip.cope() #复制
+pyperclip.paste() #剪切
+```
+
+
+
+## 实例练习
+
+1. 自动开启指定程式点选所有页面，确定每个点选功能都有反应:
+
+程式名: quickScanFunction.py
+
+工作流程
+
+```flow
+st=>start: Start
+en=>end: End
+op1=>operation: Press Win-Start Logo
+cond1=>condition: locate Logo bar?
+op2=>operation: locateCenter
+io1=>inputoutput: mouse-click
+st->op1->cond1
+cond1(yes)->op2->io1
+cond1(no)->en
+
+```
+
+
+
+
+
+
+
+
+
+1. 
 
 
 
