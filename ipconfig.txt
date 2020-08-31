@@ -1,0 +1,6 @@
+linaroip=192.168.50.157
+bmcip=192.168.50.82
+workingdir=d:/BIOS/
+APP_ID=18044023
+API_KEY=xdMedP6gkH2X6hZbUAfnqvr0
+SECRET_KEY=igeVigIi65Np9Vv0K6yL0U2mTpkyhdsd

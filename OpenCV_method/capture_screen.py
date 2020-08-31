@@ -57,5 +57,5 @@ def screenCapture(num):
     print('Camera closing>>>')
     cap.release()
 
-usbCamDetect()
-screenCapture(num)
+usbid = usbCamDetect()
+screenCapture(usbid)
