@@ -19,7 +19,7 @@ from openpyxl import Workbook
 #SECRET_KEY = 'igeVigIi65Np9Vv0K6yL0U2mTpkyhdsd'
 warnings.filterwarnings("ignore")
 
-with open(r'F:\0testexe\FBIOS\V3.01/ipconfig.txt') as f:
+with open(r'/home/pi/Documents/WinUIAutomation') as f:
 #with open('./ipconfig.txt') as f:
     text = f.read()
     name = text.split('\n')
