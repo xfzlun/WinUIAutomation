@@ -22,6 +22,8 @@ def videoCapture():
         ret, frame = cap.read()
     print('Close camera......')
     cap.release()
+videoCapture()
+'''    
 if __name__ == '__main__':
     t = threading.Thread(target=videoCapture, args=())
     t.start()
@@ -29,3 +31,4 @@ if __name__ == '__main__':
     flag_video 
     flag_video = False    
     time.sleep(10)
+'''
