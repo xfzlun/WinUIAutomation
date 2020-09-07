@@ -44,7 +44,7 @@ client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 # 将sshclient的对象的transport指定为以上的transport
 #ssh = paramiko.SSHClient()
 #ssh._transport = transport
-ID = 1
+ID = 0
 cap = cv.VideoCapture(ID)
 '''
 def usbCamDetect():
@@ -116,13 +116,14 @@ def select_place(image):
     #mask = cv.inRange(hsv, redLower, redUpper)
     #二值化操作，灰度
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    ret, binary = cv.threshold(gray, 26, 255, cv.THRESH_BINARY)
+    ret, binary = cv.threshold(gray, 15, 255, cv.THRESH_BINARY)
     # 二值化操作
     #ret, binary = cv.threshold(mask, 0, 255, cv.THRESH_BINARY)
 
     # 膨胀操作，因为是对线条进行提取定位，所以腐蚀可能会造成更大间隔的断点，将线条切断，因此仅做膨胀操作
     kernel = np.ones((5, 5), np.uint8)
     dilation = cv.dilate(binary, kernel, iterations=1)
+    cv.imwrite('./select_place_dilation.png', dilation)
     #cv.imwrite('3.jpg', img)
     # 获取图像轮廓坐标，其中contours为坐标值，此处只检测外形轮廓
     #a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE) 
@@ -137,7 +138,9 @@ def select_place(image):
             # cv2.rectangle(img, (x, y), (x+w, y+h), (153, 153, 0), 2)
             # 将绘制的图像保存并展示
             if (w > 800) and (10<y<600) and (10<h<40) and (x<10):
+            
                 new = img[y:y + h, x:x + w]
+                #new = img[y:y + h, x:x + w]
                 cv.imwrite(save_image, new)
     return
 
@@ -165,13 +168,14 @@ def select_place2(image):
     #mask = cv.inRange(hsv, redLower, redUpper)
     #二值化操作，灰度
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    ret, binary = cv.threshold(gray, 26, 255, cv.THRESH_BINARY)
+    ret, binary = cv.threshold(gray, 15, 255, cv.THRESH_BINARY)
     # 二值化操作
     #ret, binary = cv.threshold(mask, 0, 255, cv.THRESH_BINARY)
 
     # 膨胀操作，因为是对线条进行提取定位，所以腐蚀可能会造成更大间隔的断点，将线条切断，因此仅做膨胀操作
     kernel = np.ones((5, 5), np.uint8)
-    dilation = cv.dilate(binary, kernel, iterations=1)
+    dilation2 = cv.dilate(binary, kernel, iterations=1)
+    cv.imwrite("select_image2_dilation.png",dilation2)
     #cv.imwrite('3.jpg', img)
     # 获取图像轮廓坐标，其中contours为坐标值，此处只检测外形轮廓
     #a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
