@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+'''
+本Demo主要实现上传baidu api之前，对于电脑BIOS画面进行轮廓识别，确定有框选到我们要测试的item
+'''
 import cv2
 import os
 import numpy as np
