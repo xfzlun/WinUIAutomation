@@ -68,8 +68,8 @@ usbCamDetect()
 def video_select_size(a,b,c,d):
     #capture = cv.VideoCapture(ID + cv.CAP_DSHOW)  # 读取当前USB摄像头
     capture = cv.VideoCapture(ID)
-    capture.set(3, 1280)
-    capture.set(4, 720)
+    capture.set(3, 1920)
+    capture.set(4, 1080)
     alltext=[]
     i = 0
     while (True):
@@ -137,7 +137,7 @@ def select_place(image):
             # 绘制矩形框对轮廓进行定位
             # cv2.rectangle(img, (x, y), (x+w, y+h), (153, 153, 0), 2)
             # 将绘制的图像保存并展示
-            if (w > 800) and (10<y<600) and (10<h<40) and (x<10):
+            if (w > 700) and (10<y<600) and (10<h<50) and (x<10):
             
                 new = img[y:y + h, x:x + w]
                 #new = img[y:y + h, x:x + w]
@@ -169,6 +169,7 @@ def select_place2(image):
     #二值化操作，灰度
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     ret, binary = cv.threshold(gray, 15, 255, cv.THRESH_BINARY)
+    cv.imwrite("./select_image2_binary.png",binary)
     # 二值化操作
     #ret, binary = cv.threshold(mask, 0, 255, cv.THRESH_BINARY)
 
@@ -179,7 +180,7 @@ def select_place2(image):
     #cv.imwrite('3.jpg', img)
     # 获取图像轮廓坐标，其中contours为坐标值，此处只检测外形轮廓
     #a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-    contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv.findContours(dilation2, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
     if len(contours) > 0:
         # cv2.boundingRect()返回轮廓矩阵的坐标值，四个值为x, y, w, h， 其中x, y为左上角坐标，w,h为矩阵的宽和
@@ -268,6 +269,7 @@ def video_demo(): #视频显示
         videoFlag = cap.isOpened()
         while (videoFlag):
             #cv2.waitKey(1)
+            time.sleep(1)
             ret, frame = cap.read()
             try:
                 if ret:

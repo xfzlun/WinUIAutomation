@@ -1,4 +1,7 @@
 #encoding=utf-8
+'''
+本Demo实现截取视频
+'''
 
 import cv2
 import threading
