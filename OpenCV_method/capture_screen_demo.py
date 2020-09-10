@@ -1,4 +1,7 @@
 #encoding=utf-8
+'''
+本Demo实现截取视频
+'''
 
 import cv2
 import threading
@@ -8,7 +11,7 @@ def videoCapture():
     print(cv2.__version__)
     print('cv2.VideoCapture......')
     global cap
-    cap = cv2.VideoCapture( 0)
+    cap = cv2.VideoCapture(0)
     print('cap.read......')
     ret, frame = cap.read()
     
@@ -22,6 +25,8 @@ def videoCapture():
         ret, frame = cap.read()
     print('Close camera......')
     cap.release()
+videoCapture()
+'''    
 if __name__ == '__main__':
     t = threading.Thread(target=videoCapture, args=())
     t.start()
@@ -29,3 +34,4 @@ if __name__ == '__main__':
     flag_video 
     flag_video = False    
     time.sleep(10)
+'''

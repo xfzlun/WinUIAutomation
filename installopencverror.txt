@@ -1,0 +1,5 @@
+https://github.com/palantir/python-language-server/issues/370
+https://stackoverflow.com/questions/63410588/cant-install-opencv-python3-8
+https://github.com/scikit-build/cmake-python-distributions/issues/86
+https://github.com/pypa/pip/issues/6547
+https://github.com/pypa/pip/issues/6550

@@ -18,8 +18,14 @@ from openpyxl import Workbook
 #API_KEY = 'xdMedP6gkH2X6hZbUAfnqvr0'
 #SECRET_KEY = 'igeVigIi65Np9Vv0K6yL0U2mTpkyhdsd'
 warnings.filterwarnings("ignore")
+print(os.getcwd())
 
+<<<<<<< HEAD
 with open(r'/home/vjulylun/share/WInAutomation/ipconfig.txt') as f:  # 这边可以加一个异常处理，避免找不到这个档案
+=======
+
+with open(r'/home/pi/Documents/WinUIAutomation/ipconfig.txt') as f:
+>>>>>>> bba3822068430fee46aaf036688ebeb9f0601a69
 #with open('./ipconfig.txt') as f:
     text = f.read()
     name = text.split('\n')
@@ -34,16 +40,17 @@ API_KEY = app_key[1]
 SECRET_KEY = secret_key[1]
 #连接百度API端口
 client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
-BMC_IP = bmcip[1]
+#BMC_IP = bmcip[1] #no BMC
 # 实例化一个transport对象
-transport = paramiko.Transport((BMC_IP, 22))
+#transport = paramiko.Transport((BMC_IP, 22))
 # 建立连接
-transport.connect(username='sysadmin', password='superuser')
+#transport.connect(username='sysadmin', password='superuser')
 # 将sshclient的对象的transport指定为以上的transport
-ssh = paramiko.SSHClient()
-ssh._transport = transport
+#ssh = paramiko.SSHClient()
+#ssh._transport = transport
 ID = 0
-
+cap = cv.VideoCapture(ID)
+'''
 def usbCamDetect():
     ID = 0
     global cap
@@ -59,13 +66,14 @@ def usbCamDetect():
     cap.release()
 
 usbCamDetect()
+'''
 
 """截取指定位置的图片"""
 def video_select_size(a,b,c,d):
-    capture = cv.VideoCapture(ID + cv.CAP_DSHOW)  # 读取当前USB摄像头
-    #capture = cv.VideoCapture(ID)
-    capture.set(3, 1280)
-    capture.set(4, 720)
+    #capture = cv.VideoCapture(ID + cv.CAP_DSHOW)  # 读取当前USB摄像头
+    capture = cv.VideoCapture(ID)
+    capture.set(3, 1920)
+    capture.set(4, 1080)
     alltext=[]
     i = 0
     while (True):
@@ -112,17 +120,18 @@ def select_place(image):
     #mask = cv.inRange(hsv, redLower, redUpper)
     #二值化操作，灰度
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    ret, binary = cv.threshold(gray, 26, 255, cv.THRESH_BINARY)
+    ret, binary = cv.threshold(gray, 15, 255, cv.THRESH_BINARY)
     # 二值化操作
     #ret, binary = cv.threshold(mask, 0, 255, cv.THRESH_BINARY)
 
     # 膨胀操作，因为是对线条进行提取定位，所以腐蚀可能会造成更大间隔的断点，将线条切断，因此仅做膨胀操作
     kernel = np.ones((5, 5), np.uint8)
     dilation = cv.dilate(binary, kernel, iterations=1)
+    cv.imwrite('./select_place_dilation.png', dilation)
     #cv.imwrite('3.jpg', img)
     # 获取图像轮廓坐标，其中contours为坐标值，此处只检测外形轮廓
-    a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-
+    #a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE) 
+    contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)  # 新版opencv只需要2个参数
     if len(contours) > 0:
         # cv2.boundingRect()返回轮廓矩阵的坐标值，四个值为x, y, w, h， 其中x, y为左上角坐标，w,h为矩阵的宽和
         boxes = [cv.boundingRect(c) for c in contours]
@@ -132,8 +141,10 @@ def select_place(image):
             # 绘制矩形框对轮廓进行定位
             # cv2.rectangle(img, (x, y), (x+w, y+h), (153, 153, 0), 2)
             # 将绘制的图像保存并展示
-            if (w > 800) and (10<y<600) and (10<h<40) and (x<10):
+            if (w > 700) and (10<y<600) and (10<h<50) and (x<10):
+            
                 new = img[y:y + h, x:x + w]
+                #new = img[y:y + h, x:x + w]
                 cv.imwrite(save_image, new)
     return
 
@@ -161,16 +172,19 @@ def select_place2(image):
     #mask = cv.inRange(hsv, redLower, redUpper)
     #二值化操作，灰度
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    ret, binary = cv.threshold(gray, 26, 255, cv.THRESH_BINARY)
+    ret, binary = cv.threshold(gray, 15, 255, cv.THRESH_BINARY)
+    cv.imwrite("./select_image2_binary.png",binary)
     # 二值化操作
     #ret, binary = cv.threshold(mask, 0, 255, cv.THRESH_BINARY)
 
     # 膨胀操作，因为是对线条进行提取定位，所以腐蚀可能会造成更大间隔的断点，将线条切断，因此仅做膨胀操作
     kernel = np.ones((5, 5), np.uint8)
-    dilation = cv.dilate(binary, kernel, iterations=1)
+    dilation2 = cv.dilate(binary, kernel, iterations=1)
+    cv.imwrite("select_image2_dilation.png",dilation2)
     #cv.imwrite('3.jpg', img)
     # 获取图像轮廓坐标，其中contours为坐标值，此处只检测外形轮廓
-    a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    #a, contours, hierarchy = cv.findContours(dilation, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv.findContours(dilation2, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
     if len(contours) > 0:
         # cv2.boundingRect()返回轮廓矩阵的坐标值，四个值为x, y, w, h， 其中x, y为左上角坐标，w,h为矩阵的宽和
@@ -216,15 +230,17 @@ def video_bios_select(): #视频显示
                         for n in filenames:
                             path = './mark' + '/' + n
                             image = get_file_content(path)
+                            print(client.basicGeneral(image))
                             results = client.basicGeneral(image)["words_result"]  # 还可以使用身份证驾驶证模板，直接得到字典对应所需字段
                             sp = []
                         for result in results:
                             sp.append(result["words"])
                 else:
                     print('no select mode,please wait')
-                    name = './result.bmp'
+                    name = './result.png'
                     cv.imwrite(name, frame)
                     image = get_file_content(name)
+                    print(client.basicGeneral(image))
                     results = client.basicGeneral(image)["words_result"]
                     sptext = []
                     for result in results:
@@ -257,6 +273,7 @@ def video_demo(): #视频显示
         videoFlag = cap.isOpened()
         while (videoFlag):
             #cv2.waitKey(1)
+            time.sleep(1)
             ret, frame = cap.read()
             try:
                 if ret:
