@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import imutils
 
-picPath = '~/Documents/testcapture.png'  #标明图片档案所在位置
+picPath = '~/testcapture.png'  #标明图片档案所在位置
 fullPath = os.path.expanduser(picPath)  #
 print(fullPath)
 #读入图像
@@ -14,12 +14,12 @@ pic1 = cv2.imread(fullPath) #读取图档用imread, 但是如果是用摄像头�
 #lt.imshow(imutils.opencv2matplotlib(pic1))
 #cv2.waitKey(0) & 0xFF == ord('q')
 #plt.imwrite()
-'''
-以下3行不知道为什么MAC show不出来
+
+#以下3行不知道为什么MAC show不出来
 plt.subplot(2, 2, 1)  
 plt.imshow(pic1)
 plt.title('BGR')
-'''
+
 '''
 while(True):
     cv2.imshow("test", pic1)

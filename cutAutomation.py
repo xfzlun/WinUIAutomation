@@ -9,7 +9,15 @@ import imutils
 
 '''
 1. 辨识BIOS光标位置  两个方案：1. 颜色识别，2. 轮廓识别
-
 '''
 
+picPath = "~/testcapture.png"
+fullPath = os.path.expanduser(picPath)
+print(fullPath)
+
+pic = cv2.imread(fullPath)
+
+plt.subplot(2, 2, 1)
+plt.imshow(pic)
+plt.title('BGR')
 

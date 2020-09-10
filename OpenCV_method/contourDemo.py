@@ -44,9 +44,10 @@ contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPR
 '''
 findContours的第二个函数很重要，主要分为 cv2.RETR_LIST, cv2.RETR_TREE, cv2.RETR_CCOMP, cv2.RETR_EXTERNAL，具体含义可参考官方文档
 '''
-import numpy as np
-import matplotlib.pyplot as plt
-import cv2
+
+#import numpy as np
+#import matplotlib.pyplot as plt
+#import cv2
 
 img = cv2.imread(r'/Documents/2d36d7c607b0f923a9aa3ef1a7b274cb.jpg')
 # 转为灰度图
