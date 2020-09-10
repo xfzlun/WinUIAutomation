@@ -1,5 +1,16 @@
 # -*- coding:utf-8 -*-
 '''
+轮廓 可以简单地解释为 连接具有相同颜色或强度的所有连续点（沿边界）的曲线。轮廓是用于 形状分析 以及 对象检测和识别 的有用工具。
+
+轮廓相关的注意事项：
+为了获得更高的准确性，请使用二进制图像（binary images）。因此，在找到轮廓之前，
+请应用阈值（threshold ）或 Canny边缘检测（canny edge detection）；
+调用cv2.findContours()函数、cv2.drawContours()函数将修改源图像。
+因此，如果想在找到轮廓后仍可获取源图像，需保证在调用findContours()函数、
+cv2.drawContours()函数之前已经将其存储到其他变量中；
+在OpenCV中，寻找图像轮廓类似于从黑色背景中找到白色物体。
+因此，请记住，要找到的对象应该是白色，背景应该是黑色。
+
 使用OpenCV的findContours获取轮廓并切割(python)  -- Line 9
 https://blog.csdn.net/loovelj/article/details/78739790
 基于Python+OpenCV自动提取并裁切ROI（感兴趣区域） -- Line 54
@@ -33,6 +44,23 @@ contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPR
 '''
 findContours的第二个函数很重要，主要分为 cv2.RETR_LIST, cv2.RETR_TREE, cv2.RETR_CCOMP, cv2.RETR_EXTERNAL，具体含义可参考官方文档
 '''
+import numpy as np
+import matplotlib.pyplot as plt
+import cv2
+
+img = cv2.imread(r'/Documents/2d36d7c607b0f923a9aa3ef1a7b274cb.jpg')
+# 转为灰度图
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# 把原图二值化——选取一个全局阈值`thresh`，然后根据全局阈值将一幅灰度图二值化，
+# 将灰度图img中灰度值小于阈值的点置0，灰度值大于175的点置255
+ret, thresh = cv2.threshold(img_gray, 127, 255, 0)
+# 检测图像连通区（输入为二值化图像）
+contours, heirarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
+# 绘制寻找到的轮廓线（在原始图像上绘制轮廓线）
+img_contours = cv2.drawContours(img, contours, -1, (0,255,0), 3)
+plt.imshow(img_contours)
+
+
 
 '''
 #2 画出轮廓
