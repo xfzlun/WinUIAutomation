@@ -16,8 +16,9 @@ pic1 = cv2.imread(fullPath) #读取图档用imread, 但是如果是用摄像头�
 #plt.imwrite()
 
 #以下3行不知道为什么MAC show不出来
-plt.subplot(2, 2, 1)  
+# plt.subplot(2, 2, 1)  
 plt.imshow(pic1)
+plt.show()
 plt.title('BGR')
 
 '''
