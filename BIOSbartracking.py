@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 bar_color = 'red'  # 选择想要识别的颜色
 
 # HSV的取色范围设定如下，我们可以利用matplotlib的plt.show功能找出阀值
-color_dist = {'red': {'Lower': np.array([0, 255, 58]), 'Upper': np.array([6, 255, 255])},
+color_dist = {'red': {'Lower': np.array([0, 255, 52]), 'Upper': np.array([6, 255, 255])},
               'blue': {'Lower': np.array([100, 80, 46]), 'Upper': np.array([124, 255, 255])},
               'green': {'Lower': np.array([35, 43, 35]), 'Upper': np.array([90, 255, 255])},
               }
