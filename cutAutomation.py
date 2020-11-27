@@ -11,7 +11,7 @@ import imutils
 1. 辨识BIOS光标位置  两个方案：1. 颜色识别，2. 轮廓识别
 '''
 
-picPath = "~/Documents/testcapture.png"
+picPath = "C:\\Users\\Laurence_SZH\\Pictures\\Camera Roll\\201124183637.BMP"
 fullPath = os.path.expanduser(picPath)
 print(fullPath)
 
@@ -21,8 +21,8 @@ print(pic)
 pic2 = cv2.cvtColor(pic, cv2.COLOR_BGR2RGB)
 #plt.subplot(20, 20, 10)
 #以下这段主要是show出我们读到的图片
-'''
-用plt.show的好处是可以读得到threshod的值
+
+#用plt.show的好处是可以读得到threshod的值
 plt.imshow(pic2)
 plt.title('BGR')
 #plt.show()  # 用这个会一直显示
@@ -30,19 +30,19 @@ plt.ion()  #搭配plt.pause & plt.close()可以让窗口显示5秒就关闭
 plt.pause(5)  
 #plt.waitforbuttonpress(4)
 plt.close()  #关闭图像窗口
-'''
+
 # 利用阀值_绘制长方形的BIOS光标轮廓
 img_gray = cv2.cvtColor(pic, cv2.COLOR_BGR2GRAY)
-ret, thresh = cv2.threshold(img_gray, 16, 18, 0)
-'''
-plt.imshow(thresh)
+# ret, thresh = cv2.threshold(img_gray, 16, 18, 0)
+ret, thresh = cv2.threshold(img_gray, 33, 0, 0)
+plt.imshow(img_gray)
 plt.title('thresh')
 plt.ion()  
-plt.pause(5)
+plt.pause(35)
 plt.close()
-'''
+
 #检测图像的连通区(输入为二值化图像)
-contours, heirarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+threshold, contours, heirarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 # 绘制寻找到的轮廓线
 img_contours = cv2.drawContours(pic, contours, -1, (255,255,255),3)
 
