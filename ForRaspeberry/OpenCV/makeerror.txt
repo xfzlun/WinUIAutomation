@@ -1,0 +1,7 @@
+home/pi/Downloads/opencv-4.3.0/opencv_contrib-4.3.0/modules/xfeatures2d/src/boostdesc.cpp:654:20: fatal error: boostdesc_bgm.i: No such file or directory
+           #include "boostdesc_bgm.i"
+                    ^~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [modules/world/CMakeFiles/opencv_world.dir/build.make:7736: modules/world/CMakeFiles/opencv_world.dir/__/__/opencv_contrib-4.3.0/modules/xfeatures2d/src/boostdesc.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:3090: modules/world/CMakeFiles/opencv_world.dir/all] Error 2
+make: *** [Makefile:163: all] Error 2
