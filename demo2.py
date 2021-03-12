@@ -20,12 +20,7 @@ from openpyxl import Workbook
 warnings.filterwarnings("ignore")
 print(os.getcwd())
 
-<<<<<<< HEAD
 with open(r'/home/vjulylun/share/WInAutomation/ipconfig.txt') as f:  # 这边可以加一个异常处理，避免找不到这个档案
-=======
-
-with open(r'/home/pi/Documents/WinUIAutomation/ipconfig.txt') as f:
->>>>>>> bba3822068430fee46aaf036688ebeb9f0601a69
 #with open('./ipconfig.txt') as f:
     text = f.read()
     name = text.split('\n')
